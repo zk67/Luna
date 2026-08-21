@@ -1,4 +1,4 @@
-from tokenizer import sentence_to_corpus, bpe_function, add_new_tokens
+from tokenizer.tokenizer import sentence_to_corpus, bpe_function, add_new_tokens
 import json
 
 #function that encodes the input text into token ids using the vocabulary and merged rules stored
@@ -18,12 +18,11 @@ def encode_token_ids():
         except json.JSONDecodeError:
             merged_rules = []
 
-    with open('tokenizer/corpus_decode.txt', 'r', encoding='utf-8') as file:
+    with open('data/corpus.txt', 'r', encoding='utf-8') as file:
         input_text = file.read()
 
     corpus = sentence_to_corpus(input_text) 
 
-    print("Corpus:", corpus)
 
     for rule in merged_rules:
         bpe_function(corpus, rule)
@@ -38,5 +37,4 @@ def encode_token_ids():
             else:
                 key_corpus.append(vocab["<UNK>"])
 
-    print("Corpus:", corpus)
-    print("Key Corpus:", key_corpus)
+    return key_corpus

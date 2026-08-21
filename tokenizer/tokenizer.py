@@ -84,7 +84,7 @@ def tokenize_function():
 
   
   #pre-tokenisation
-  corpus = sentence_to_corpus(input_text)
+  corpus = sentence_to_corpus(input_text.lower())
   add_new_tokens(corpus, vocab)
 
   tokens = []
