@@ -1,0 +1,5 @@
+EMBEDDING_MATRIX_PATH = "model/matrices/embedding_matrix.npy"
+OUTPUT_MATRIX_PATH = "model/matrices/output_matrix.npy"
+VOCAB_PATH = "tokenizer/vocab.json"
+MERGE_PATH = "tokenizer/merge.json"
+CORPUS_PATH = "data/corpus.txt"

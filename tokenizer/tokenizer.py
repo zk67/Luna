@@ -1,11 +1,12 @@
 import json
 import re;
+import paths
 
 #Take a sentence and a vocab dictionary and return a corpus of the sentence.
-def sentence_to_corpus(sentence):
+def tokenize_text(text):
     tokens = re.findall(
         r"[A-Za-z]+|\d+|[,.!?:;()\[\]{}\"']",
-        sentence
+        text.lower()
     )
 
     corpus = []
@@ -27,7 +28,8 @@ def add_new_tokens(corpus, vocab):
                 vocab[char] = max_key + 1
 
 
-#Take a corpus and return a tuple of the most frequent pair of letters in the corpus with their frequency count. If there are no pairs, return None.
+#Take a corpus and return a tuple of the most frequent pair of letters in the corpus with their frequency count.
+#If there are no pairs, return None.
 def most_frequent_pair(corpus):
   map = {}
   for i in range(len(corpus)):
@@ -42,7 +44,8 @@ def most_frequent_pair(corpus):
       return None
   return list(max(map.items(), key=lambda x: x[1])[0])
 
-
+#function that takes a corpus and a recurrence (a rule from the merge.json file) and merges the two letter or 
+#group of letters in the corpus into a single group.
 def bpe_function(corpus, recurrence):
   word = recurrence[0] + recurrence[1]
 
@@ -62,29 +65,28 @@ def bpe_function(corpus, recurrence):
     corpus[i] = new_corpus
 
 #Use BPE function to tokenize a text and save the vocab and merge files.
-#The function reads the input text from "tokenizer/input.txt", updates the vocabulary and the merge rules, and saves them in "tokenizer/vocab.json" and 
+#The function reads the input text from "data/corpus.txt", updates the vocabulary and the merge rules, and saves them in "tokenizer/vocab.json" and 
 #"tokenizer/merge.json" respectively.
 def tokenize_function():
 
  #read files
-  with open( "tokenizer/vocab.json", "r", encoding="utf-8") as file:
+  with open( paths.VOCAB_PATH, "r", encoding="utf-8") as file:
     try:
         vocab = json.load(file)
     except json.JSONDecodeError:
         vocab = {}
 
-  with open("tokenizer/merge.json", "r", encoding="utf-8") as file:
+  with open(paths.MERGE_PATH, "r", encoding="utf-8") as file:
       try:
           merged_rules = json.load(file)
       except json.JSONDecodeError:
           merged_rules = []
 
-  with open("data/corpus.txt", "r", encoding="utf-8") as file:
+  with open(paths.CORPUS_PATH, "r", encoding="utf-8") as file:
     input_text = file.read()
-
   
   #pre-tokenisation
-  corpus = sentence_to_corpus(input_text.lower())
+  corpus = tokenize_text(input_text.lower())
   add_new_tokens(corpus, vocab)
 
   tokens = []
@@ -127,9 +129,10 @@ def tokenize_function():
           vocab[token] = vocab[max_key] + 1
           
 
-  with open("tokenizer/vocab.json", "w", encoding="utf-8") as file:
+  with open(paths.VOCAB_PATH, "w", encoding="utf-8") as file:
     json.dump(vocab, file, indent=4, ensure_ascii=False)
   
-  with open("tokenizer/merge.json", "w", encoding="utf-8") as file:
+  with open(paths.MERGE_PATH, "w", encoding="utf-8") as file:
     json.dump(merged_rules, file, indent=4, ensure_ascii=False)
 
+  return vocab

@@ -1,71 +1,115 @@
-The morning was quiet and the streets were almost empty. A soft light appeared above the buildings as the sun began to rise. People slowly walked outside and started their daily routines.
-A young student opened a book and began to read. The book described a small village surrounded by mountains and forests. The village had a river, several houses, a school, and a small market where people gathered every morning.
-Learning takes time and requires practice. A person does not become an expert after reading one book or completing one exercise. Progress usually comes from repeating difficult tasks, making mistakes, understanding those mistakes, and trying again.
-Water is essential for life. Plants need water to grow, animals need water to survive, and humans use water for drinking, cooking, cleaning, and agriculture. The amount of available fresh water varies greatly between different regions of the world.
-The Earth is a planet that moves around the Sun. It also rotates around its own axis. The rotation of Earth produces the cycle of day and night, while its movement around the Sun is related to the yearly cycle of seasons.
-The ocean covers a large part of the surface of Earth. Oceans influence weather, climate, ecosystems, and human activities. Many different species live in marine environments, from very small organisms to large whales.
-A forest contains many different forms of life. Trees provide shelter and food for animals, while plants, insects, birds, and microorganisms interact with one another. Changes in temperature, rainfall, and human activity can affect the health of a forest.
-History is the study of events that happened in the past. Historians use documents, objects, buildings, maps, and other evidence to understand how people lived and how societies changed over time.
-Cities have changed significantly throughout history. Some cities grew around rivers because rivers provided water and supported transportation. Other cities developed near oceans, trade routes, mines, or fertile agricultural regions.
-A community is made of people who share a place, an activity, or a common interest. Communities can be small or large. They can exist in neighborhoods, schools, workplaces, online spaces, and many other environments.
-Communication allows people to exchange information and ideas. Language is one of the most important tools for communication. People also communicate through gestures, images, sounds, facial expressions, and written messages.
-A conversation usually involves several participants who exchange ideas. One person may ask a question while another person provides an answer. Good communication requires attention, clarity, and an understanding of context.
-A question can have a simple answer or require detailed reasoning. Some questions ask for factual information, while others ask for an explanation, comparison, opinion, or solution to a problem.
-People make decisions every day. Some decisions are simple, such as choosing what to eat, while others are more complex, such as choosing a career or deciding how to solve an important problem.
-Mathematics is used to describe quantities, relationships, patterns, and structures. Numbers can represent objects, measurements, positions, or abstract concepts. Addition, subtraction, multiplication, and division are basic mathematical operations.
-A triangle has three sides and three angles. A square has four equal sides and four right angles. A circle is defined by a set of points that are at the same distance from a center.
-Time can be measured using seconds, minutes, hours, days, months, and years. People use clocks and calendars to organize activities and record events.
-Weather describes the conditions of the atmosphere at a particular place and time. Temperature, humidity, wind, air pressure, and precipitation are important elements used to describe weather.
-Climate describes typical weather conditions over a much longer period. Different regions have different climates because of their latitude, altitude, geography, oceans, and atmospheric conditions.
-Food provides energy and nutrients needed by the human body. A balanced diet can include vegetables, fruits, grains, proteins, and other sources of nutrients.
-Exercise can improve physical fitness and support general well-being. Walking, running, swimming, cycling, and strength training are examples of physical activities.
-Sleep is an important part of daily life. During sleep, the body and brain perform many processes that help maintain normal function. Regular sleep can support attention, memory, and energy.
-A library contains books and other resources that people can use to learn. Modern libraries may also provide computers, digital resources, study spaces, and educational activities.
-A school is an environment where students learn new concepts and develop skills. Teachers explain ideas, organize activities, answer questions, and help students understand difficult subjects.
-Education is not limited to schools. People can learn from books, conversations, experiments, observation, work, and personal experience.
-A scientific experiment is designed to test an idea or hypothesis. Researchers collect observations, measure results, compare evidence, and use their findings to evaluate explanations.
-Science depends on observation and evidence. A scientific explanation can change when new evidence becomes available. This process allows knowledge to improve over time.
-Technology has changed the way people communicate, work, travel, and access information. Computers can process large amounts of data and perform complex calculations very quickly.
-A computer follows instructions provided by software. Software is created using programming languages and can perform many different tasks, such as processing information, displaying images, communicating over networks, or controlling devices.
-The Internet connects computers and networks around the world. People use the Internet to communicate, access information, collaborate, purchase products, watch media, and use online services.
-A web browser allows users to access websites and web applications. When a user enters an address, the browser communicates with a server and receives resources that can be displayed on the screen.
-A database is used to store and organize information. Applications can read, create, update, and delete records. Databases are commonly used by websites, businesses, scientific systems, and many other applications.
-Artificial intelligence is a field of computer science concerned with creating systems that can perform tasks that normally require aspects of human intelligence. These tasks can include recognizing patterns, understanding language, making predictions, and solving problems.
-Machine learning is a method in which a system learns patterns from examples. A model receives data during training and adjusts internal parameters to improve its predictions.
-A language model processes sequences of tokens. A tokenizer converts text into smaller units, and a vocabulary assigns an identifier to each unit. The model can then process those identifiers and learn statistical relationships between them.
-An embedding represents a token as a vector of numerical values. During training, these vectors can change so that tokens with useful relationships can develop useful representations.
-A model can predict the next token in a sequence. For example, given the words "The sky is", a language model may predict a token such as "blue". The prediction is compared with the correct token during training.
-Training a model involves many repeated steps. The model receives an input, produces an output, calculates an error, computes gradients, and updates its parameters. Repeating this process allows the model to learn patterns from the training data.
-A good model requires useful training data. If the data contains only a narrow type of language, the model may become specialized in that style. A diverse corpus can expose the model to different vocabulary, sentence structures, subjects, and writing styles.
-People also use numbers to describe measurements. Distance can be measured in meters or kilometers, weight can be measured in grams or kilograms, and temperature can be measured in degrees Celsius or Fahrenheit.
-Travel allows people to discover new places and cultures. A trip may involve planning transportation, finding accommodation, preparing a schedule, and learning about local customs.
-A map represents a geographical area. Maps can show roads, rivers, cities, mountains, borders, and other features. Digital maps can also provide routes and estimated travel times.
-A restaurant prepares food and drinks for customers. A menu usually contains a list of available dishes and their prices. Customers choose what they want and place an order.
-A store sells products to customers. Products can have different prices, sizes, qualities, and features. Customers often compare several products before making a decision.
-Money is used to exchange goods and services. People earn money through work, save money for future needs, and spend money on products and services.
-A budget helps a person or organization plan how money will be used. A simple budget can contain income, fixed expenses, variable expenses, savings, and other financial information.
-An organization often divides responsibilities between different teams. Each team may have specific objectives, tasks, and resources. Cooperation between teams can help an organization complete larger projects.
-A project usually has a goal, a schedule, and a set of tasks. A project can be divided into smaller parts so that different people can work on different responsibilities.
-Planning can reduce uncertainty and help people use their time efficiently. A plan does not always remain unchanged because new information can require changes.
-Problems can often be solved by breaking them into smaller problems. This approach makes complex situations easier to analyze and allows each part to be examined separately.
-When people work together, they can combine different skills and perspectives. Collaboration can produce better solutions, but it also requires communication and coordination.
-A good explanation should be clear and organized. It should introduce the main idea, provide relevant details, and use examples when they help the reader understand the subject.
-Different languages use different words and grammatical structures. Even when languages describe the same idea, the order of words and the way information is expressed can be different.
-A sentence can contain a subject, a verb, and additional information. Sentences can be short or long, and several sentences can be combined to form a paragraph.
-Words can have different meanings depending on context. The same word may describe different objects, actions, or concepts. Understanding context is therefore important when processing language.
-Reading provides information and exposes people to different ways of expressing ideas. Writing allows people to communicate their own ideas and preserve information for others.
-Curiosity encourages people to ask questions and explore unfamiliar subjects. Asking good questions can be the first step toward understanding a difficult topic.
-A mistake does not necessarily mean that a person has failed. Mistakes can provide information about what went wrong and what could be changed.
-Practice is useful when learning a new skill. Repeated practice allows a person to recognize patterns, improve speed, and develop confidence.
-Some problems have many possible solutions. Choosing a solution may require comparing advantages, disadvantages, costs, risks, and expected results.
-The future is difficult to predict with certainty. People can make plans based on available information, but unexpected events can change those plans.
-A useful system should be reliable, understandable, and maintainable. Whether the system is a software application, a transportation network, or an organization, clear processes can make it easier to operate.
-Learning a language requires exposure to vocabulary, grammar, sentence structure, and context. Reading many different texts can help a learner recognize how words are used in different situations.
-A model that processes language faces a similar problem. It must learn that the meaning and function of a token can depend on the tokens around it.
-Context is therefore important when predicting language. The word "bank" can refer to a financial institution or the side of a river depending on the surrounding words.
-The goal of a language model is not simply to memorize individual words. It should learn patterns that allow it to produce plausible sequences of tokens.
-A small language model cannot know everything. Its capabilities depend strongly on the size and quality of its training data, its architecture, and the amount of computation used during training.
-Building a model from scratch is useful for understanding how machine learning systems work. Each component can be inspected, tested, and modified independently.
-The tokenizer converts raw text into tokens. The encoder converts tokens into integer identifiers. The embedding layer converts identifiers into numerical vectors. The neural network processes these vectors and produces predictions.
-During training, the model compares its prediction with the expected token. The difference is represented by a loss value. Gradients indicate how the parameters should change to reduce that loss.
-After many training iterations, the model may become better at predicting common patterns in the training corpus. Evaluation on text that was not used for training can help determine whether the model learned useful patterns rather than simply memorizing examples.
+what is the capital of india ? NewDelhi.
+what is the continent of india ? Asia.
+what is the capital of chile ? Santiago.
+what is the continent of chile ? America.
+what is the capital of peru ? Lima.
+capital of peru ? Lima.
+what is the continent of peru ? America.
+what is the capital of sweden ? Stockholm.
+what is the continent of sweden ? Europe.
+what is the capital of brazil ? Brasilia.
+what is the continent of brazil ? America.
+continent of brazil ? America.
+what is the capital of poland ? Warsaw.
+what is the continent of poland ? Europe.
+what is the capital of vietnam ? Hanoi.
+what is the continent of vietnam ? Asia.
+what is the capital of algeria ? Algiers.
+capital of algeria ? Algiers.
+what is the continent of algeria ? Africa.
+what is the capital of denmark ? Copenhagen.
+what is the continent of denmark ? Europe.
+what is the capital of italy ? Rome.
+what is the continent of italy ? Europe.
+continent of italy ? Europe.
+what is the capital of israel ? Jerusalem.
+what is the continent of israel ? Asia.
+what is the capital of portugal ? Lisbon.
+what is the continent of portugal ? Europe.
+what is the capital of southafrica ? Pretoria.
+capital of southafrica ? Pretoria.
+what is the continent of southafrica ? Africa.
+what is the capital of cuba ? Havana.
+what is the continent of cuba ? America.
+what is the capital of norway ? Oslo.
+what is the continent of norway ? Europe.
+continent of norway ? Europe.
+what is the capital of southkorea ? Seoul.
+what is the continent of southkorea ? Asia.
+what is the capital of japan ? Tokyo.
+what is the continent of japan ? Asia.
+what is the capital of nigeria ? Abuja.
+capital of nigeria ? Abuja.
+what is the continent of nigeria ? Africa.
+what is the capital of canada ? Ottawa.
+what is the continent of canada ? America.
+what is the capital of thailand ? Bangkok.
+what is the continent of thailand ? Asia.
+continent of thailand ? Asia.
+what is the capital of australia ? Canberra.
+what is the continent of australia ? Oceania.
+what is the capital of indonesia ? Jakarta.
+what is the continent of indonesia ? Asia.
+what is the capital of saudiarabia ? Riyadh.
+capital of saudiarabia ? Riyadh.
+what is the continent of saudiarabia ? Asia.
+what is the capital of colombia ? Bogota.
+what is the continent of colombia ? America.
+what is the capital of mexico ? MexicoCity.
+what is the continent of mexico ? America.
+continent of mexico ? America.
+what is the capital of argentina ? BuenosAires.
+what is the continent of argentina ? America.
+what is the capital of newzealand ? Wellington.
+what is the continent of newzealand ? Oceania.
+what is the capital of senegal ? Dakar.
+capital of senegal ? Dakar.
+what is the continent of senegal ? Africa.
+what is the capital of france ? Paris.
+what is the continent of france ? Europe.
+what is the capital of usa ? Washington.
+what is the continent of usa ? America.
+continent of usa ? America.
+what is the capital of russia ? Moscow.
+what is the continent of russia ? Europe.
+what is the capital of kenya ? Nairobi.
+what is the continent of kenya ? Africa.
+what is the capital of finland ? Helsinki.
+capital of finland ? Helsinki.
+what is the continent of finland ? Europe.
+what is the capital of morocco ? Rabat.
+what is the continent of morocco ? Africa.
+what is the capital of ethiopia ? AddisAbaba.
+what is the continent of ethiopia ? Africa.
+continent of ethiopia ? Africa.
+what is the capital of spain ? Madrid.
+what is the continent of spain ? Europe.
+what is the capital of china ? Beijing.
+what is the continent of china ? Asia.
+what is the capital of egypt ? Cairo.
+capital of egypt ? Cairo.
+what is the continent of egypt ? Africa.
+what is the capital of belgium ? Brussels.
+what is the continent of belgium ? Europe.
+what is the capital of turkey ? Ankara.
+what is the continent of turkey ? Asia.
+continent of turkey ? Asia.
+what is the capital of netherlands ? Amsterdam.
+what is the continent of netherlands ? Europe.
+what is the capital of austria ? Vienna.
+what is the continent of austria ? Europe.
+what is the capital of greece ? Athens.
+capital of greece ? Athens.
+what is the continent of greece ? Europe.
+what is the capital of ireland ? Dublin.
+what is the continent of ireland ? Europe.
+what is the capital of ukraine ? Kyiv.
+what is the continent of ukraine ? Europe.
+continent of ukraine ? Europe.
+what is the capital of germany ? Berlin.
+what is the continent of germany ? Europe.
+what is the capital of switzerland ? Bern.
+what is the continent of switzerland ? Europe.
+what is the capital of tunisia ? Tunis.
+capital of tunisia ? Tunis.
+what is the continent of tunisia ? Africa.

@@ -1,7 +1,8 @@
 import numpy as np
+import config
 
-#function to create training examples from token ids (inputs 3) --> (target 1)
-def create_training_examples(token_ids, context_size =3):
+#function to create training examples from token ids (number of inputs = CONTEXT_SIZE) --> (target 1)
+def create_training_examples(token_ids, context_size = config.CONTEXT_SIZE):
     inputs = []
     targets = []
 

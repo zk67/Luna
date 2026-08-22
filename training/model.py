@@ -34,18 +34,14 @@ def get_dscores(softmax_scores, targets):
     dscores /= len(targets)
     return dscores
 
+#function that performs gradient descent to update the embedding and output matrices based on the dscores and embeddings
 def gradient_descent(embedding_matrix, output_matrix, dscores, embeddings, learning_rate, inputs):
     dW2 = embeddings.T @ dscores
     dW1 = dscores @ output_matrix.T
-
+    
     dW1 = dW1.reshape(inputs.shape[0], inputs.shape[1], -1)
 
     embedding_matrix[inputs] -= learning_rate * dW1
     output_matrix -= learning_rate * dW2
 
-    # print("dW1 mean:", np.mean(np.abs(dW1)))
-    # print("dW2 mean:", np.mean(np.abs(dW2)))
-
     return embedding_matrix, output_matrix
-
-    
