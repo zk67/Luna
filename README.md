@@ -16,13 +16,16 @@ In its current state, Luna is trained on a small Q&A corpus about world capitals
 
 ## Why it's built this way
 
-Luna intentionally avoids deep learning frameworks. Every core mechanism — tokenization, embeddings, matrix multiplication for scoring, softmax, cross-entropy loss, and gradient updates — is implemented by hand with NumPy. The goal is to understand each step of the pipeline, not to build a production-ready chatbot.
+Luna is intentionally build deep learning frameworks. Every core mechanism — tokenization, embeddings, matrix multiplication for scoring, softmax, cross-entropy loss, and gradient updates — is implemented by hand with NumPy. The goal is to understand each step of the pipeline, not to build a production-ready chatbot. Currently, the next version is being build, this version will be using Pytorch and TensorFlow in order to upgrade the performance and the training of the model.
 
 **Known limitations (by design, at this stage):**
 - No attention mechanism — the model treats its fixed-size context window as a single flat vector, without the ability to dynamically weigh which token matters most
 - Single linear layer (embeddings → scores), no hidden layers or non-linearity yet
 - Fixed context window (`CONTEXT_SIZE`), with left-padding for short prompts and truncation for long ones
 - Best suited for short, structured questions — free-form conversation is out of scope for now
+
+**In the next update:**
+- will be using Pytorch and Tensorflow
 
 ## Project structure
 
