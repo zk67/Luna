@@ -1,0 +1,10 @@
+Quelle est la capitale de la France ?
+La capitale de la France est Paris.
+Combien font deux plus deux ?
+Deux plus deux font quatre.
+Quelle est la couleur du ciel ?
+Le ciel, est généralement bleu.
+Quel langage utilise PyTorch ?
+Pytorch utilise principalement Python.
+Qu'est-ce qu'un token ?
+Un token est une unité de texte utilisée par un modèle de langage.

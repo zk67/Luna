@@ -1,23 +1,40 @@
 import json
-import re;
+import re
+import config
 import paths
 
 #Take a sentence and a vocab dictionary and return a corpus of the sentence.
-def tokenize_text(text):
+def split_text(text):
     tokens = re.findall(
-        r"[A-Za-z]+|\d+|[,.!?:;()\[\]{}\"']",
-        text.lower()
+        r"[A-Za-zÀ-ÖØ-öø-ÿ]+|\d+|[,.!?:;()\[\]{}\"']",
+        text
     )
 
     corpus = []
 
     for word in tokens:
-        corpus.append(list(word))
+      if word.isalnum():
+        word = "▁" + word
+      corpus.append(list(word))
 
     return corpus
 
 #add new tokens to the vocab dictionary if they are not already present in the vocab.
 def add_new_tokens(corpus, vocab):
+    
+    SPECIAL_TOKENS = [
+    "<PAD>",
+    "<UNK>",
+    "<BOS>",
+    "<EOS>",
+    "<USER>",
+    "<ASSISTANT>"
+    ]
+
+    for token in SPECIAL_TOKENS:
+      if token not in vocab:
+          vocab[token] = len(vocab)
+
     for word in corpus:
         for char in word:
             if char not in vocab:
@@ -44,31 +61,30 @@ def most_frequent_pair(corpus):
       return None
   return list(max(map.items(), key=lambda x: x[1])[0])
 
-#function that takes a corpus and a recurrence (a rule from the merge.json file) and merges the two letter or 
-#group of letters in the corpus into a single group.
+  #merge the most recurrent pair of letters in the corpus and update the corpus by replacing the pair with 
+  # a single token of the merged pair
 def bpe_function(corpus, recurrence):
   word = recurrence[0] + recurrence[1]
 
   for i in range(len(corpus)):
-    corp = corpus[i]
+    word_list = corpus[i]
     new_corpus = []
     j = 0
-    while j < len(corp):
-        if j+1 < len(corp) and corp[j] == recurrence[0] and corp[j+1] == recurrence[1]:
-          corp[j] = word
-          new_corpus.append(corp[j])
+    while j < len(word_list):
+        if j+1 < len(word_list) and word_list[j] == recurrence[0] and word_list[j+1] == recurrence[1]:
+          word_list[j] = word
+          new_corpus.append(word_list[j])
           #jump 2 index 
           j += 2
         else:
-          new_corpus.append(corp[j])
+          new_corpus.append(word_list[j])
           j += 1
     corpus[i] = new_corpus
 
 #Use BPE function to tokenize a text and save the vocab and merge files.
-#The function reads the input text from "data/corpus.txt", updates the vocabulary and the merge rules, and saves them in "tokenizer/vocab.json" and 
+#The function reads the input text from "data/input_text.txt", updates the vocabulary and the merge rules, and saves them in "tokenizer/vocab.json" and 
 #"tokenizer/merge.json" respectively.
-def tokenize_function():
-
+def tokenize_function(input_text):
  #read files
   with open( paths.VOCAB_PATH, "r", encoding="utf-8") as file:
     try:
@@ -81,52 +97,36 @@ def tokenize_function():
           merged_rules = json.load(file)
       except json.JSONDecodeError:
           merged_rules = []
-
-  with open(paths.CORPUS_PATH, "r", encoding="utf-8") as file:
-    input_text = file.read()
   
-  #pre-tokenisation
-  corpus = tokenize_text(input_text.lower())
+  #text into list of words each word is a list of characters lowercased, and the words are stored in a list called corpus.
+  #special characters are added as a list of 1 special character.
+  corpus = split_text(input_text)
+
+  #add spécial tokens to vocab, then add each character in the corpus to the vocab if it is not already present.
   add_new_tokens(corpus, vocab)
 
-  tokens = []
-  print(corpus)
-
-  while True:
-
+  while len(vocab) < config.VOCAB_MAX_SIZE:
     #most recurrent pair of letters in the corpus with their frequency count.
     recurrence = most_frequent_pair(corpus)
-
-    print(recurrence)
 
     if recurrence is None:
       print("No more pairs to merge.")
       break
 
-    #merge the most recurrent pair of letters in the corpus.
+    #merge the most recurrent pair of letters in the corpus and update the corpus by replacing the pair with 
+    # a single token of the merged pair
     bpe_function(corpus, recurrence)
 
-    print(corpus)
+    #take the pair
+    pair = recurrence[0] + recurrence[1]
+    merged_pair = [recurrence[0], recurrence[1]]
 
-    #if new word, add to vocab
-    word = recurrence[0] + recurrence[1]
-    if word not in vocab:
-      tokens.append(word)
+    if pair not in vocab:
+      max_id = max(vocab.values(), default=-1) 
+      vocab[pair] = max_id + 1   
+      if merged_pair not in merged_rules:
+        merged_rules.append(merged_pair)
 
-    merge_list = [recurrence[0], recurrence[1]]
-    
-    if merge_list not in merged_rules:
-      merged_rules.append(merge_list)
-
- #end loop, save data in files
-
-  for token in tokens:
-    if vocab.get(token) is None:
-        max_key = max(vocab.keys(), key=lambda x: vocab[x],default=None)
-        if max_key is None:
-            vocab[token] = 0
-        else:
-          vocab[token] = vocab[max_key] + 1
           
 
   with open(paths.VOCAB_PATH, "w", encoding="utf-8") as file:
