@@ -6,8 +6,8 @@ import paths
 import json
 from tokenizer.encoder import encode_prompt
 
-
-#function to create training examples from token ids (number of inputs = CONTEXT_SIZE) --> (target 1)
+#function to create training examples from token ids, uses the first window of the context size, 
+#and then moves the window by one token to create the next training example.
 def create_training_examples(vocab):
     inputs = []
     targets = []
@@ -41,7 +41,8 @@ def create_training_examples(vocab):
 
     return (torch.tensor(inputs, dtype=torch.long),torch.tensor(targets, dtype=torch.long))
 
-
+#function that creates attention masks for the input sequences, where True indicates a token to 
+#attend to and False indicates a token to ignore (padding).
 def create_attention_masks(inputs, vocab):
     attention_masks = []
 
@@ -81,7 +82,6 @@ def build_dataset_jsonl(input_text):
       answer = lines[i + 1]
       json.dump({"question": question, "answer": answer}, file, ensure_ascii=False)
       file.write("\n")
-
 
 # Load questions and answers from the dataset file.
 def load_questions_and_answers():

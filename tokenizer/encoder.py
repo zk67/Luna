@@ -25,8 +25,6 @@ def encode_prompt(input_text):
     for rule in merged_rules:
         bpe_function(corpus, rule)
 
-    print("Corpus after applying BPE:", corpus)
-
     key_corpus = []
 
     for word in corpus:
