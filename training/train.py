@@ -1,24 +1,18 @@
+import os
+
 import torch
 import torch.nn as nn
 import json
 from model.transformer import Transformer
 from torch.utils.data import TensorDataset, DataLoader
+import paths
+import paths
 from training.dataset import build_dataset_jsonl, create_attention_masks, create_training_examples, create_casual_mask 
 from tokenizer.tokenizer import tokenize_function
+import config
 
 
-def main():
-    # with open("data/input_text.txt", "r", encoding="utf-8") as file:
-    #     input_text = file.read()
-
-    # print("Building vocab and and merge rules from input text...")
-    # tokenize_function(input_text)  # Tokenize the input text and update vocab and merge rules
-    # print("done building vocab and merge rules")
-    # print("Building dataset from input text...")
-    # build_dataset_jsonl(input_text)  # Build the dataset from the input text
-    # print("done building dataset")
-    # print("starting training...")
-    
+def train(num_loops=10):
 
     with open("tokenizer/vocab.json", "r", encoding="utf-8") as file:
             vocab = json.load(file)
@@ -33,33 +27,32 @@ def main():
     dataset = TensorDataset( inputs, targets, attention_masks )
 
     # Create batches of 8 examples
-    dataloader = DataLoader( dataset, batch_size=8, shuffle=True )
+    dataloader = DataLoader( dataset, batch_size=config.BATCH_SIZE, shuffle=True )
 
 
     model = Transformer(
-        vocab_size=len(vocab),
-        hidden_size=128,
-        context_size=64,
-        num_heads=4,
-        intermediate_size=512,
-        num_layers=6
+        vocab_size=config.VOCAB_SIZE,
+        hidden_size=config.HIDDEN_SIZE,
+        context_size=config.CONTEXT_SIZE,
+        num_heads=config.HEADS,
+        intermediate_size=config.INTERMEDIATE_SIZE,
+        num_layers=config.LAYERS
     )
 
     #loss function that ignores the padding tokens in the target_ids during loss calculation.
     criterion = nn.CrossEntropyLoss( ignore_index=-100 )
 
     #optimizer that uses the AdamW optimization algorithm with a learning rate of 0.001 to update the model's parameters during training.
-    optimizer = torch.optim.AdamW( model.parameters(), lr=0.0003 )
+    optimizer = torch.optim.AdamW( model.parameters(), lr=config.LEARNING_RATE )
 
     #load the model and optimizer state from a checkpoint file "data/checkpoint.pth" to resume training from a previous state.
     checkpoint = torch.load("data/model.pth")
     model.load_state_dict(checkpoint["model_state_dict"])
     optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
 
-    num_loops = 10
-
-    print("Starting training for", num_loops, "epochs...")
+    print("Starting training for", num_loops, "loops...")
     model.train() 
+
     for loop in range(num_loops):
         total_loss = 0
 
@@ -92,7 +85,21 @@ def main():
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict()
     }, "data/model.pth")
-    
 
-if __name__ == "__main__":
-    main()
+def load_new_dataset():
+     with open("data/input_text.txt", "r", encoding="utf-8") as file:
+        input_text = file.read()
+     
+        print("Building vocab and and merge rules from input text...")
+        tokenize_function(input_text)  # Tokenize the input text and update vocab and merge rules
+        print("done building vocab and merge rules")
+        print("Building dataset from input text...")
+        build_dataset_jsonl(input_text)  # Build the dataset from the input text
+        print("done building dataset")
+
+def reset_model():
+    if os.path.exists(paths.MODEL_PATH):
+        os.remove(paths.MODEL_PATH)
+        print("Model reinitialized.")
+    else:
+        print("no model to reinitialize.")

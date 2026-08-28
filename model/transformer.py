@@ -84,23 +84,25 @@ class Transformer(nn.Module):
         vocab_size,
         hidden_size,
         context_size,
-        num_heads=4,
-        intermediate_size=512,
-        num_layers=6
+        num_heads,
+        intermediate_size,
+        num_layers
     ):
         super().__init__()
 
         self.token_embedding = nn.Embedding(vocab_size, hidden_size)
         self.position_embedding = nn.Embedding(context_size, hidden_size)
 
-        self.layers = nn.ModuleList([
-            TransformerBlock(
+        self.layers = nn.ModuleList()
+
+        for i in range(num_layers):
+            layer = TransformerBlock(
                 hidden_size,
                 num_heads,
                 intermediate_size
             )
-            for _ in range(num_layers)
-        ])  
+
+            self.layers.append(layer)
 
         self.lm_head = nn.Linear(hidden_size, vocab_size)
 
@@ -112,7 +114,6 @@ class Transformer(nn.Module):
         position_embedding = self.position_embedding(positions)
 
         x = token_embedding + position_embedding
-
 
         for layer in self.layers:
             # Matches the streamlined block signature now
