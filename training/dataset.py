@@ -20,7 +20,7 @@ def create_training_examples(vocab):
         a_token_ids = encode_prompt(a)
 
         # Build the sequence with special tokens
-        sequence = build_sequence(q_token_ids, a_token_ids, vocab)
+        sequence = build_training_sequence(q_token_ids, a_token_ids, vocab)
 
         input_ids = sequence[:-1]
         target_ids = sequence[1:]   
@@ -49,23 +49,24 @@ def create_attention_masks(inputs, vocab):
     for input in inputs:
         mask = []
         for token_id in input:
-            if (token_id == vocab["<PAD>"]):
+            if token_id.item() == vocab["<PAD>"]:
                 mask.append(0)
             else:
-              mask.append(1)
+                mask.append(1)
+
         attention_masks.append(mask)
 
     return torch.tensor(attention_masks, dtype=torch.bool)
 
-#casual_attention_mask = matrice with True values in the lower triangle and False values in the upper triangle, 
+#casual_mask = matrice with True values in the lower triangle and False values in the upper triangle, 
 #to prevent the model from attending to future tokens during training.
-def create_casual_attention_mask():
+def create_casual_mask():
     return torch.tril(torch.ones(config.CONTEXT_SIZE, config.CONTEXT_SIZE, dtype=torch.bool))
 
 #add to the question list the special token <USER> at the beginning and to the answer list the special token <ASSISTANT> at the end.
 #Add to the answer list the special token <EOS> at the end.
 #return the modified question and answer lists.
-def build_sequence(question_tokens, answer_tokens, vocab): 
+def build_training_sequence(question_tokens, answer_tokens, vocab): 
     sequence = ([vocab["<USER>"]] + question_tokens + [vocab["<ASSISTANT>"]] + answer_tokens + [vocab["<EOS>"]])
     return sequence
 
@@ -94,3 +95,25 @@ def load_questions_and_answers():
             questions.append(data["question"])
             answers.append(data["answer"])
     return questions, answers
+
+#function that creates a generation sequence from the question tokens,
+#adds the special token <USER> at the beginning and the special token <ASSISTANT> at the end.
+#this is to inject the question into the model and generate an answer.
+def build_generation_sequence(question_tokens, vocab):
+    user_token = torch.tensor(
+        [vocab["<USER>"]],
+        dtype=torch.long,
+        device=question_tokens.device
+    )
+
+    assistant_token = torch.tensor(
+        [vocab["<ASSISTANT>"]],
+        dtype=torch.long,
+        device=question_tokens.device
+    )
+
+    sequence = torch.cat(
+        [user_token, question_tokens, assistant_token]
+    )
+
+    return sequence

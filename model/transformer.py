@@ -2,44 +2,6 @@ import torch
 import torch.nn as nn
 import math
 
-
-def apply_rope(x):
-    batch_size, num_heads, sequence_length, head_dim = x.shape
-
-    positions = torch.arange(
-        sequence_length,
-        device=x.device
-    )
-
-    inv_freq = 1.0 / (
-        10000 ** (
-            torch.arange(
-                0,
-                head_dim,
-                2,
-                device=x.device
-            ).float() / head_dim
-        )
-    )
-
-    angles = torch.outer(positions, inv_freq)
-
-    cos = torch.cos(angles).unsqueeze(0).unsqueeze(0)
-    sin = torch.sin(angles).unsqueeze(0).unsqueeze(0)
-
-    x_even = x[..., 0::2]
-    x_odd = x[..., 1::2]
-
-    x_rotated_even = x_even * cos - x_odd * sin
-    x_rotated_odd = x_even * sin + x_odd * cos
-
-    x_rotated = torch.stack(
-        [x_rotated_even, x_rotated_odd],
-        dim=-1
-    )
-
-    return x_rotated.flatten(-2)
-
 class TransformerBlock(nn.Module):
     def __init__(self, hidden_size, num_heads, intermediate_size):
         super().__init__()
@@ -78,9 +40,6 @@ class TransformerBlock(nn.Module):
         Q = Q.reshape(batch_size, sequence_length, self.num_heads, self.head_dim).transpose(1, 2)
         K = K.reshape(batch_size, sequence_length, self.num_heads, self.head_dim).transpose(1, 2)
         V = V.reshape(batch_size, sequence_length, self.num_heads, self.head_dim).transpose(1, 2)  
-
-        Q = apply_rope(Q)
-        K = apply_rope(K) 
 
         # compute the attention scores
         scores = Q @ K.transpose(-2, -1)
@@ -132,6 +91,7 @@ class Transformer(nn.Module):
         super().__init__()
 
         self.token_embedding = nn.Embedding(vocab_size, hidden_size)
+        self.position_embedding = nn.Embedding(context_size, hidden_size)
 
         self.layers = nn.ModuleList([
             TransformerBlock(
@@ -145,7 +105,14 @@ class Transformer(nn.Module):
         self.lm_head = nn.Linear(hidden_size, vocab_size)
 
     def forward(self, input_ids, attention_mask, causal_mask):
-        x = self.token_embedding(input_ids)
+        sequence_length = input_ids.shape[1]
+        positions = torch.arange(sequence_length, device=input_ids.device)
+
+        token_embedding = self.token_embedding(input_ids)
+        position_embedding = self.position_embedding(positions)
+
+        x = token_embedding + position_embedding
+
 
         for layer in self.layers:
             # Matches the streamlined block signature now

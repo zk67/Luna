@@ -3,7 +3,7 @@ import torch.nn as nn
 import json
 from model.transformer import Transformer
 from torch.utils.data import TensorDataset, DataLoader
-from training.dataset import build_dataset_jsonl, create_attention_masks, create_training_examples, create_casual_attention_mask 
+from training.dataset import build_dataset_jsonl, create_attention_masks, create_training_examples, create_casual_mask 
 from tokenizer.tokenizer import tokenize_function
 
 
@@ -28,7 +28,7 @@ def main():
 
     print("creating attention masks...")
     attention_masks = create_attention_masks(inputs, vocab)
-    casual_attention_mask = create_casual_attention_mask()
+    casual_attention_mask = create_casual_mask()
 
     dataset = TensorDataset( inputs, targets, attention_masks )
 
@@ -38,25 +38,28 @@ def main():
 
     model = Transformer(
         vocab_size=len(vocab),
-        hidden_size=1024,
-        context_size=1024,
-        num_heads=16,
-        intermediate_size=4096,
-        num_layers=24
+        hidden_size=128,
+        context_size=64,
+        num_heads=4,
+        intermediate_size=512,
+        num_layers=6
     )
-
-    #model.load_state_dict(torch.load("data/model.pth"))
-
 
     #loss function that ignores the padding tokens in the target_ids during loss calculation.
     criterion = nn.CrossEntropyLoss( ignore_index=-100 )
 
     #optimizer that uses the AdamW optimization algorithm with a learning rate of 0.001 to update the model's parameters during training.
-    optimizer = torch.optim.AdamW( model.parameters(), lr=0.001 )
+    optimizer = torch.optim.AdamW( model.parameters(), lr=0.0003 )
+
+    #load the model and optimizer state from a checkpoint file "data/checkpoint.pth" to resume training from a previous state.
+    checkpoint = torch.load("data/model.pth")
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
 
     num_loops = 10
 
     print("Starting training for", num_loops, "epochs...")
+    model.train() 
     for loop in range(num_loops):
         total_loss = 0
 
@@ -85,7 +88,10 @@ def main():
         average_loss = total_loss / len(dataloader)
         print( f"Epoch {loop + 1}/{num_loops} - " f"Loss: {average_loss:.4f}" )
 
-    torch.save( model.state_dict(), "data/model.pth")
+    torch.save({
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict()
+    }, "data/model.pth")
     
 
 if __name__ == "__main__":

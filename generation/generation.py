@@ -1,53 +1,121 @@
-from tokenizer.encoder import encode_token_ids, decode_token_ids
-import config
-import numpy as np
-import paths
-from training.model import get_embeddings, get_scores, softmax
+import torch
 
-#function that generates text based on the given prompt and the trained model.
-#It uses the embedding and output matrices to predict the next token in the sequence, and continues generating
-# tokens until it reaches the specified maximum number of tokens.
-def generate(prompt, max_token=2):
+from model.transformer import Transformer
+from tokenizer import tokenizer
+from training.dataset import build_generation_sequence, create_attention_masks, create_casual_mask
+from tokenizer.encoder import encode_prompt, decode_token_ids
+import json
 
-    embedding_matrix = np.load(paths.EMBEDDING_MATRIX_PATH)
-    output_matrix = np.load(paths.OUTPUT_MATRIX_PATH)
 
-    encoded_prompt = encode_token_ids(prompt)
-    if len(encoded_prompt) < config.CONTEXT_SIZE:
-        encoded_prompt = [0] * (config.CONTEXT_SIZE - len(encoded_prompt)) + encoded_prompt
-    if len(encoded_prompt) > config.CONTEXT_SIZE:
-        encoded_prompt = encoded_prompt[-config.CONTEXT_SIZE:]
+# =========================
+# Configuration
+# =========================
+
+VOCAB_SIZE = 5000
+HIDDEN_SIZE = 128
+CONTEXT_SIZE = 64
+NUM_HEADS = 4
+INTERMEDIATE_SIZE = 512
+NUM_LAYERS = 6
+
+MODEL_PATH = "data/model.pth"
+
+# À adapter à ton tokenizer
+EOS_TOKEN_ID = 3
+
+
+# =========================
+# Generation
+# =========================
+
+def generate(model, input_ids, vocab, max_new_tokens=64, temperature=0.8):
+    model.eval()
+    input_ids = torch.tensor(input_ids, dtype=torch.long)
+    input_ids = build_generation_sequence(input_ids, vocab)
+    input_ids = input_ids[ -CONTEXT_SIZE:]
     
-    context = np.array(encoded_prompt[-config.CONTEXT_SIZE:])
-    context = context.reshape(1, -1)
-
-    generated_tokens = []
-    i = 0
-
-    while i < max_token:
-        embeddings = get_embeddings(context, embedding_matrix)
-        scores = get_scores(embeddings, output_matrix)
-        softmax_scores = softmax(scores)
-
-        #print the top 3 token ids and their probabilities
-        top_indices = np.argsort(softmax_scores[0])[-10:][::-1]
-        for index in top_indices:
-            print(
-                "Token ID:", index,
-                "Probability:", softmax_scores[0][index]
-            )
-
-        token = np.argmax(softmax_scores)
-        generated_tokens.append(token)
-        if(i +1 == max_token):
-            return decode_token_ids(generated_tokens)
-
-        context = np.append(context, token)
-        context = context[-config.CONTEXT_SIZE:]
-        context = context.reshape(1, -1)
-
-        i += 1
 
 
+    for i in range(max_new_tokens):
+        input_ids_copy = input_ids.clone()
+        current_length = input_ids_copy.shape[0]
+        padding_length = CONTEXT_SIZE - current_length
+
+        if padding_length > 0:
+            padding = torch.full((padding_length,), vocab["<PAD>"], dtype=torch.long)
+            input_ids_copy = torch.cat([input_ids_copy, padding], dim=0)
+
+        attention_mask = create_attention_masks(input_ids_copy.unsqueeze(0), vocab).squeeze(0)
+        causal_mask = create_casual_mask()
+
+        logits = model(input_ids_copy.unsqueeze(0), attention_mask.unsqueeze(0), causal_mask)
+
+        # FIX : prendre la position du dernier token réel, pas -1
+        next_token_logits = logits[:, current_length - 1, :]
+
+        next_token_logits = next_token_logits / temperature
+        probabilities = torch.softmax(next_token_logits, dim=-1)
+        next_token = torch.multinomial(probabilities, num_samples=1)
+
+        if next_token.item() == vocab["<EOS>"]:
+            break
+        if current_length >= CONTEXT_SIZE:
+            break
+
+        input_ids = torch.cat([input_ids, next_token.squeeze(0)], dim=0)
+
+    return input_ids
 
 
+# =========================
+# Main
+# =========================
+
+def main():
+
+    with open("tokenizer/vocab.json", "r", encoding="utf-8") as file:
+        vocab = json.load(file)
+
+    # Créer le modèle
+    model = Transformer(
+        vocab_size=len(vocab),
+        hidden_size=HIDDEN_SIZE,
+        context_size=CONTEXT_SIZE,
+        num_heads=NUM_HEADS,
+        intermediate_size=INTERMEDIATE_SIZE,
+        num_layers=NUM_LAYERS
+    )
+
+    # Charger les poids entraînés
+    checkpoint = torch.load(MODEL_PATH)
+
+    model.load_state_dict(
+        checkpoint["model_state_dict"]
+    )
+    model.eval()
+
+    # Prompt
+    prompt = input("Prompt: ")
+
+    # Tokenizer
+    input_ids = encode_prompt(prompt)
+
+    # Génération
+    generated = generate(
+        model,
+        input_ids,
+        vocab,
+        max_new_tokens=64,
+        temperature=0.8
+    )
+
+    # Décoder
+    output = decode_token_ids(generated.tolist())
+
+    print()
+    print("Generated:")
+    print(output)
+
+
+if __name__ == "__main__":
+    main()
