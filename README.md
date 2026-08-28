@@ -1,100 +1,107 @@
-# Luna AI
+# Luna
 
-A tiny language model built **entirely from scratch in Python and NumPy**, no PyTorch, no TensorFlow, no pre-trained weights. Luna implements the core building blocks of a language model (a custom BPE tokenizer, an embedding layer, a forward/backward pass, and gradient descent) and exposes them through an interactive CLI for training and chatting.
+A small language model built from the ground up: a custom Byte Pair Encoding tokenizer with no external tokenizer library, and a decoder-only Transformer trained with PyTorch. Luna is trained on a Q&A dataset covering programming and computer science fundamentals, and answers prompts through autoregressive, token-by-token generation.
 
-This project was built as a learning exercise to understand, at the implementation level, how a language model actually works under the hood.
+This project was built to understand — at the implementation level — how a modern language model actually works, from raw text to a trained, chat-style assistant.
+
+## Overview
+
+Luna started as a fully from-scratch implementation (tokenizer, embeddings, forward/backward pass, and gradient descent, all in NumPy, with no deep learning framework) to learn the mechanics behind LLMs firsthand. It has since evolved into a PyTorch-based Transformer, so that the project moves from "understanding every operation by hand" to "using the tools the industry actually uses" (`autograd`, `nn.Module`, `AdamW`) while keeping the tokenizer fully custom.
 
 ## What Luna can do
 
-- Learn a vocabulary from a text corpus using a **Byte Pair Encoding (BPE) tokenizer** implemented from scratch
-- Encode text into token IDs and decode token IDs back into text
-- Train a small neural network (embedding matrix + output matrix) using **manual forward pass, cross-entropy loss, and gradient descent** (no autodiff library)
-- Generate answers token-by-token from a trained model
-- Reconfigure, retrain, or reset the model entirely through an interactive terminal menu
+- Learn a vocabulary from a raw text corpus using a **from-scratch Byte Pair Encoding (BPE) tokenizer** (no `tiktoken`, no `sentencepiece`)
+- Encode/decode text to and from token IDs, including special tokens (`<USER>`, `<ASSISTANT>`, `<EOS>`, `<PAD>`, `<UNK>`)
+- Build a supervised Q&A training set with **loss masking** (the question tokens are excluded from the loss with `ignore_index=-100`, so the model is only penalized on the tokens it actually needs to generate)
+- Train a **multi-head self-attention Transformer** (PyTorch `nn.Module`) with causal + padding masking, Pre-LN residual connections, RMSNorm, and a SwiGLU-style feed-forward block
+- Generate answers autoregressively (greedy or temperature-based sampling) from a natural-language prompt
 
-In its current state, Luna is trained on a small Q&A corpus about world capitals and continents (e.g. `what is the capital of france ? paris.`) and answers short, single-token-style questions in that fixed format.
+Example:
+```
+Prompt: What is time complexity?
+Generated: Time complexity describes how an algorithm's execution time
+grows as the size of its input increases.
+```
 
-## Why it's built this way
+## Architecture
 
-Luna is intentionally build deep learning frameworks. Every core mechanism — tokenization, embeddings, matrix multiplication for scoring, softmax, cross-entropy loss, and gradient updates — is implemented by hand with NumPy. The goal is to understand each step of the pipeline, not to build a production-ready chatbot. Currently, the next version is being build, this version will be using Pytorch and TensorFlow in order to upgrade the performance and the training of the model.
+**Tokenizer (from scratch, no external library)**
+- Regex-based pre-tokenization (words, digits, punctuation)
+- Iterative BPE merging: at each step, finds the most frequent adjacent token pair across the corpus and merges it, until the target vocabulary size is reached
+- Vocabulary and merge rules persisted to `tokenizer/vocab.json` and `tokenizer/merge.json`, reused for consistent encoding at both training and generation time
 
-**Known limitations (by design, at this stage):**
-- No attention mechanism — the model treats its fixed-size context window as a single flat vector, without the ability to dynamically weigh which token matters most
-- Single linear layer (embeddings → scores), no hidden layers or non-linearity yet
-- Fixed context window (`CONTEXT_SIZE`), with left-padding for short prompts and truncation for long ones
-- Best suited for short, structured questions — free-form conversation is out of scope for now
+**Model (PyTorch)**
+- Token embedding + learned positional embedding
+- N stacked Transformer blocks, each with:
+  - RMSNorm → multi-head self-attention (scaled dot-product, causal mask + padding mask) → residual connection
+  - RMSNorm → SwiGLU feed-forward (`silu(W1x) * W2x` projected back down by `W3`) → residual connection
+- Final linear `LM head` projecting the last token's hidden state to vocabulary logits
 
-**In the next update:**
-- will be using Pytorch and Tensorflow
+**Training**
+- Custom `Dataset`/`DataLoader` pipeline built on top of the hand-written tokenizer
+- Question/answer pairs formatted as `<USER> question <ASSISTANT> answer <EOS>`, with the question span masked out (`-100`) in the targets so loss is computed only on the assistant's response
+- `CrossEntropyLoss` with `ignore_index=-100`, `AdamW` optimizer, checkpointing to resume training across sessions
+- Trained on **2,052 Q&A pairs** covering programming and CS fundamentals (variables, data types, functions, complexity, OOP concepts, etc.), tokenized into a **5,000-token BPE vocabulary**
+
+**Generation**
+- Prompt is encoded, wrapped with `<USER>`/`<ASSISTANT>` tokens, and padded to the model's context size
+- At each step, the model predicts the next token from the last real (non-padding) position, appends it, and repeats until `<EOS>` or the context limit is reached
+- Supports both **greedy decoding** (`argmax`, deterministic) and **temperature-based sampling** (`multinomial`, more varied output)
 
 ## Project structure
 
 ```
 Luna/
-├── main.py                  # CLI entry point: menus, chat loop, training controls
-├── config.py                # Model & training hyperparameters (auto-updated by the CLI)
-├── paths.py                 # Centralized file paths
+├── config.py                  # Model & training hyperparameters
+├── paths.py                   # Centralized file paths
 ├── data/
-│   └── corpus.txt           # Training corpus (question ? answer. per line)
+│   ├── input_text.txt          # Raw Q&A training corpus
+│   ├── dataset.jsonl           # Structured {question, answer} dataset
+│   └── model.pth                # Trained model + optimizer checkpoint
 ├── tokenizer/
-│   ├── tokenizer.py         # BPE training: builds vocab.json and merge.json from the corpus
-│   ├── encoder.py           # encode_token_ids() / decode_token_ids()
-│   ├── vocab.json           # Learned vocabulary (token -> id)
-│   └── merge.json           # Learned BPE merge rules
+│   ├── tokenizer.py            # From-scratch BPE training (vocab + merge rules)
+│   ├── encoder.py              # encode_prompt() / decode_token_ids()
+│   ├── vocab.json               # Learned vocabulary (token -> id)
+│   └── merge.json               # Learned BPE merge rules
+├── model/
+│   └── transformer.py          # Transformer block + full model (PyTorch nn.Module)
 ├── training/
-│   ├── model.py             # Embeddings, scores, softmax, loss, gradient descent
-│   ├── dataset.py           # Builds (context, target) training pairs from token ids
-│   └── train_model.py       # Training loop (batching, loss tracking, checkpointing)
-├── generation/
-│   └── generation.py        # Autoregressive token-by-token generation
-└── model/matrices/
-    ├── embedding_matrix.npy # Learned embedding matrix
-    └── output_matrix.npy    # Learned output (scoring) matrix
+│   ├── dataset.py               # Sequence building, masking, attention/causal masks
+│   └── train.py                 # Training loop (forward, loss, backward, checkpointing)
+└── generation/
+    └── generation.py            # Autoregressive generation from a prompt
 ```
-
-## How it works
-
-**1. Tokenization (BPE, from scratch)**
-`tokenizer/tokenizer.py` pre-splits the corpus into words and characters, then iteratively merges the most frequent adjacent pair of tokens — the classic Byte Pair Encoding algorithm — until no more useful merges remain. The resulting vocabulary and merge rules are saved to `vocab.json` and `merge.json`, and reused at encoding time to tokenize any new input consistently.
-
-**2. Model architecture**
-For a context of `CONTEXT_SIZE` token IDs:
-1. Each token ID is looked up in the **embedding matrix** (`VOCAB_SIZE x EMBEDDING_SIZE`) and the resulting vectors are concatenated into a single flat vector.
-2. That vector is multiplied by the **output matrix** (`EMBEDDING_SIZE * CONTEXT_SIZE x VOCAB_SIZE`) to produce a raw score for every token in the vocabulary.
-3. **Softmax** turns those scores into a probability distribution over the vocabulary.
-
-**3. Training**
-For every `(context, target)` pair generated from the corpus, `train_model.py` runs a forward pass, computes the **cross-entropy loss** against the true next token, and backpropagates the gradients manually to update both the embedding and output matrices via gradient descent. The matrices are only saved to disk when a new best average loss is reached.
-
-**4. Generation**
-`generation.py` starts from a user prompt, encodes it into token IDs, pads or truncates it to `CONTEXT_SIZE`, and then repeatedly: runs a forward pass, picks the most likely next token (`argmax` over the softmax output), appends it to the context (sliding window), and repeats until `max_token` tokens have been generated.
 
 ## Getting started
 
-**Requirements:** Python 3.12+, NumPy
+**Requirements:** Python 3.12+, PyTorch
 
 ```bash
-pip install numpy
-python main.py
+pip install torch
 ```
 
-From the main menu you can:
-- **Chat with Luna** — ask a question in the trained format (e.g. `what is the capital of france ?`) (e.g. `capital of france ?`) (e.g. `what is the continent of france ?`)(e.g. `continent of france ?`)
-- **Train the AI or change parameters** — train on the current corpus, load a new corpus (which resets the vocabulary and matrices), tweak training hyperparameters, or reset the model from scratch
-
-## Example
-
-```
-Question on a country or a capital ?: what is the capital of france ?
-Luna: paris.
+**Train:**
+```bash
+python -m training.train
 ```
 
-## Roadmap / possible next steps
+**Chat with Luna:**
+```bash
+python -m generation.generation
+```
 
-- Add a hidden layer with a non-linear activation to increase model capacity
-- Implement a basic self-attention mechanism
-- Move from single-token answers to full generated sentences (requires fully autoregressive training over multi-token targets)
-- Expand and diversify the training corpus
+## Current limitations
+
+- Small model (`hidden_size=128`, 6 layers, `context_size=64`) — designed to be trainable quickly on a CPU, not to compete with production LLMs
+- Narrow domain: reliable mostly on questions close to the training distribution (programming/CS fundamentals); can blend or misattribute answers on questions that overlap in vocabulary across topics
+- Single-turn Q&A rather than multi-turn conversation memory
+
+## Roadmap
+
+- Scale up (`hidden_size`, layers, context) now that the model runs on PyTorch
+- Expand and diversify the training dataset to reduce topic confusion
+- Move to multi-turn conversation formatting (retaining prior turns in context)
+- Add TensorFlow as an alternate backend to compare implementations
 
 ## Author
 
