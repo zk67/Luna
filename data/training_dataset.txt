@@ -1992,3 +1992,11 @@ What does debbuging mean?
 Debugging helps programmers find and fix bugs.
 What does debugging meen?
 Debugging helps programmers find and fix bugs.
+What is a integer ?
+An integer is a whole number without a decimal part.
+what is a integer
+An integer is a whole number without a decimal part.
+what is a integer ?
+An integer is a whole number without a decimal part.
+What is a integer
+An integer is a whole number without a decimal part.

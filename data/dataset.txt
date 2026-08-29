@@ -699,3 +699,11 @@ How do you define polymorphism?
 Polymorphism lets different classes provide different implementations.
 What does polymorphism do?
 Polymorphism allows the same interface to work with different objects.
+What is a integer ?
+An integer is a whole number without a decimal part.
+what is a integer
+An integer is a whole number without a decimal part.
+what is a integer ?
+An integer is a whole number without a decimal part.
+What is a integer
+An integer is a whole number without a decimal part.
