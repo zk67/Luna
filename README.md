@@ -52,24 +52,27 @@ grows as the size of its input increases.
 
 ```
 Luna/
-├── config.py                  # Model & training hyperparameters
-├── paths.py                   # Centralized file paths
+├── config.py                    # Model & training hyperparameters
+├── main.py                      # CLI entry point (menu: chat, train, configure)
+├── paths.py                     # Centralized file paths
+├── README.md                    # Project documentation
 ├── data/
-│   ├── input_text.txt          # Raw Q&A training corpus
-│   ├── dataset.jsonl           # Structured {question, answer} dataset
-│   └── model.pth                # Trained model + optimizer checkpoint
+│   ├── dataset.jsonl             # Structured {question, answer} dataset
+│   ├── dataset.txt               # Raw Q&A training corpus
+│   ├── training_dataset.txt      # Preprocessed/formatted training data
+│   └── model.pth                 # Trained model + optimizer checkpoint
 ├── tokenizer/
-│   ├── tokenizer.py            # From-scratch BPE training (vocab + merge rules)
-│   ├── encoder.py              # encode_prompt() / decode_token_ids()
-│   ├── vocab.json               # Learned vocabulary (token -> id)
-│   └── merge.json               # Learned BPE merge rules
+│   ├── tokenizer.py              # From-scratch BPE training (vocab + merge rules)
+│   ├── encoder.py                # encode_prompt() / decode_token_ids()
+│   ├── vocab.json                # Learned vocabulary (token -> id)
+│   └── merge.json                # Learned BPE merge rules
 ├── model/
-│   └── transformer.py          # Transformer block + full model (PyTorch nn.Module)
+│   └── transformer.py            # Transformer block + full model (PyTorch nn.Module)
 ├── training/
-│   ├── dataset.py               # Sequence building, masking, attention/causal masks
-│   └── train.py                 # Training loop (forward, loss, backward, checkpointing)
+│   ├── dataset.py                # Sequence building, masking, attention/causal masks
+│   └── train.py                  # Training loop (forward, loss, backward, checkpointing)
 └── generation/
-    └── generation.py            # Autoregressive generation from a prompt
+    └── generation.py             # Autoregressive generation from a prompt
 ```
 
 ## Getting started
