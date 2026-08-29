@@ -31,12 +31,13 @@ def train(num_loops=10):
 
 
     model = Transformer(
-        vocab_size=config.VOCAB_SIZE,
+        vocab_size=len(vocab),
         hidden_size=config.HIDDEN_SIZE,
         context_size=config.CONTEXT_SIZE,
         num_heads=config.HEADS,
         intermediate_size=config.INTERMEDIATE_SIZE,
-        num_layers=config.LAYERS
+        num_layers=config.LAYERS,
+        dropout=config.DROPOUT
     )
 
     #loss function that ignores the padding tokens in the target_ids during loss calculation.
@@ -46,9 +47,16 @@ def train(num_loops=10):
     optimizer = torch.optim.AdamW( model.parameters(), lr=config.LEARNING_RATE )
 
     #load the model and optimizer state from a checkpoint file "data/checkpoint.pth" to resume training from a previous state.
-    checkpoint = torch.load("data/model.pth")
-    model.load_state_dict(checkpoint["model_state_dict"])
-    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    if os.path.exists(paths.MODEL_PATH):
+        print("Loading existing model...")
+
+        checkpoint = torch.load(paths.MODEL_PATH)
+        model.load_state_dict(checkpoint["model_state_dict"])
+
+        optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+        print("Model loaded.")
+    else:
+        print("No existing model found. Starting from scratch.")
 
     print("Starting training for", num_loops, "loops...")
     model.train() 
@@ -87,14 +95,17 @@ def train(num_loops=10):
     }, "data/model.pth")
 
 def load_new_dataset():
-     with open("data/input_text.txt", "r", encoding="utf-8") as file:
-        input_text = file.read()
-     
+    with open("data/dataset.txt", "r", encoding="utf-8") as file:
+        dataset = file.read()
+
+    with open("data/training_dataset.txt", "r", encoding="utf-8") as file:
+        training_dataset = file.read()
+
         print("Building vocab and and merge rules from input text...")
-        tokenize_function(input_text)  # Tokenize the input text and update vocab and merge rules
+        tokenize_function(dataset)  # Tokenize the input text and update vocab and merge rules
         print("done building vocab and merge rules")
         print("Building dataset from input text...")
-        build_dataset_jsonl(input_text)  # Build the dataset from the input text
+        build_dataset_jsonl(training_dataset)  # Build the dataset from the input text
         print("done building dataset")
 
 def reset_model():
@@ -102,4 +113,14 @@ def reset_model():
         os.remove(paths.MODEL_PATH)
         print("Model reinitialized.")
     else:
-        print("no model to reinitialize.")
+        print("No model to reinitialize.")
+
+    for file_path in [paths.VOCAB_PATH, paths.MERGE_PATH, paths.DATASET_PATH]:
+        if os.path.exists(file_path):
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write("")
+            print(f"{file_path} emptied.")
+        else:
+            print(f"{file_path} not found.")
+
+

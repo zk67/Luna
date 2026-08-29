@@ -1,0 +1,701 @@
+What is a variable?
+A variable is a named place used to store a value.
+How would you define a variable?
+A variable is a named place used to store data.
+What does a variable do?
+A variable stores a value that a program can use.
+What is an integer?
+An integer is a whole number without a decimal part.
+How do you define an integer?
+An integer is a number with no decimal portion.
+What does integer mean?
+An integer is a whole number.
+What is a string?
+A string is a sequence of characters used to represent text.
+How would you define a string?
+A string is text stored as a sequence of characters.
+What does a string do?
+A string allows a program to store and work with text.
+What is a float?
+A float is a number that can contain a decimal value.
+How do you define a float?
+A float is a data type used for numbers with decimal parts.
+What does float mean?
+A float represents a number that may have decimals.
+What is a boolean?
+A boolean is a value that can be true or false.
+How would you define a boolean?
+A boolean is a data type with two possible values, true and false.
+What does boolean mean?
+A boolean represents a true or false value.
+What is a data type?
+A data type defines the kind of value a variable can store.
+How do you define a data type?
+A data type describes how a value is represented and used.
+What does a data type do?
+A data type tells a program what kind of data it is working with.
+What is a function?
+A function is a reusable block of code that performs a task.
+How would you define a function?
+A function is a named block of code that can be called when needed.
+What does a function do?
+A function performs a specific task when it is called.
+What is a parameter?
+A parameter is a variable that receives a value in a function.
+How do you define a parameter?
+A parameter is a variable used to receive input from a function call.
+What does a parameter do?
+A parameter allows a function to receive a value.
+What is an argument?
+An argument is a value passed to a function.
+How would you define an argument?
+An argument is the value provided when a function is called.
+What does an argument do?
+An argument provides input to a function.
+What is a loop?
+A loop is a structure used to repeat code.
+How do you define a loop?
+A loop repeatedly executes a block of code.
+What does a loop do?
+A loop runs the same code multiple times.
+What is a for loop?
+A for loop repeats code over a sequence or range.
+How would you define a for loop?
+A for loop is used to repeat code for a set of values.
+What does a for loop do?
+A for loop executes code repeatedly while going through a sequence.
+What is a while loop?
+A while loop repeats code while a condition is true.
+How do you define a while loop?
+A while loop executes a block of code as long as its condition is true.
+What does a while loop do?
+A while loop keeps running while a condition remains true.
+What is an array?
+An array is a collection of values stored in an ordered structure.
+How would you define an array?
+An array stores multiple elements that can be accessed by position.
+What does an array do?
+An array allows a program to store and access multiple values.
+What is a list?
+A list is an ordered collection of values.
+How do you define a list?
+A list is a data structure used to store multiple elements.
+What does a list do?
+A list allows a program to store and manage several values.
+What is a data structure?
+A data structure is a way to organize and store data.
+How would you define a data structure?
+A data structure organizes data so it can be accessed and used.
+What does a data structure do?
+A data structure helps a program store and manage data efficiently.
+What is a class?
+A class is a blueprint used to create objects.
+How do you define a class?
+A class defines the structure and behavior of objects.
+What does a class do?
+A class describes the data and behavior that objects can have.
+What is an object?
+An object is an instance of a class.
+How would you define an object?
+An object is a specific instance created from a class.
+What does an object do?
+An object stores data and can provide behavior defined by its class.
+What is a method?
+A method is a function associated with a class or object.
+How do you define a method?
+A method is a function that belongs to a class or object.
+What does a method do?
+A method defines an action that an object can perform.
+What is an if statement?
+An if statement runs code when a condition is true.
+How would you define an if statement?
+An if statement is used to make a decision based on a condition.
+What does an if statement do?
+An if statement allows a program to choose whether code should run.
+What is a condition?
+A condition is an expression that evaluates to true or false.
+How do you define a condition?
+A condition is used to determine whether something is true.
+What does a condition do?
+A condition helps a program make decisions.
+What is an operator?
+An operator is a symbol or keyword used to perform an operation.
+How would you define an operator?
+An operator performs an operation on one or more values.
+What does an operator do?
+An operator allows a program to calculate, compare, or modify values.
+What is an assignment operator?
+An assignment operator gives a value to a variable.
+How do you define an assignment operator?
+An assignment operator is used to assign a value to a variable.
+What does an assignment operator do?
+An assignment operator stores a value in a variable.
+What is a constant?
+A constant is a value that is intended to remain unchanged.
+How would you define a constant?
+A constant represents a value that should not change during execution.
+What does a constant do?
+A constant provides a fixed value for a program to use.
+What is a pointer?
+A pointer is a variable that stores a memory address.
+How do you define a pointer?
+A pointer holds the address of another value in memory.
+What does a pointer do?
+A pointer allows a program to work with memory addresses.
+What is memory?
+Memory is storage used by a computer to hold data and instructions.
+How would you define memory?
+Memory is the area where data can be stored while a program runs.
+What does memory do?
+Memory allows programs to store and access data during execution.
+What is an algorithm?
+An algorithm is a sequence of steps used to solve a problem.
+How do you define an algorithm?
+An algorithm is a set of instructions for completing a task.
+What does an algorithm do?
+An algorithm provides steps for solving a problem.
+What is a compiler?
+A compiler translates source code into a form a computer can execute.
+How would you define a compiler?
+A compiler is a program that translates programming code.
+What does a compiler do?
+A compiler converts source code into executable or lower-level code.
+What is source code?
+Source code is code written by a programmer.
+How do you define source code?
+Source code is the human-readable form of a program.
+What does source code contain?
+Source code contains the instructions used to create a program.
+What is syntax?
+Syntax is the set of rules for writing valid code.
+How would you define syntax?
+Syntax defines how statements must be written in a programming language.
+What does syntax mean?
+Syntax describes the correct structure of programming code.
+What is a bug?
+A bug is a defect that causes a program to behave incorrectly.
+How do you define a bug?
+A bug is a mistake in software that can cause unexpected behavior.
+What does a bug cause?
+A bug can cause incorrect results or unexpected program behavior.
+What is an error?
+An error is a problem that affects a program or its execution.
+How would you define an error?
+An error is a problem that prevents code from working correctly.
+What does an error mean?
+An error indicates that something went wrong in a program.
+What is a return value?
+A return value is a value sent back by a function.
+How do you define a return value?
+A return value is the result produced by a function.
+What does a return value do?
+A return value gives a function's result back to its caller.
+What is recursion?
+Recursion is when a function calls itself.
+How would you define recursion?
+Recursion is a technique where a function solves a problem by calling itself.
+What does recursion mean?
+Recursion occurs when a function calls itself during execution.
+What is a stack?
+A stack is a data structure that follows last in, first out order.
+How do you define a stack?
+A stack stores elements so the last added element is removed first.
+What does a stack do?
+A stack allows the most recently added item to be accessed first.
+What is a queue?
+A queue is a data structure that follows first in, first out order.
+How would you define a queue?
+A queue stores elements so the first added element is removed first.
+What does a queue do?
+A queue processes items in the order they were added.
+What is a boolean expression?
+A boolean expression produces a true or false result.
+How do you define a boolean expression?
+A boolean expression is an expression that evaluates to true or false.
+What does a boolean expression do?
+A boolean expression helps a program make logical decisions.
+What is a comment?
+A comment is text in source code that is not executed.
+How would you define a comment?
+A comment is a note added to code for people reading it.
+What does a comment do?
+A comment explains code without affecting program execution.
+What is a program?
+A program is a set of instructions that a computer executes.
+How do you define a program?
+A program is software containing instructions for performing tasks.
+What does a program do?
+A program tells a computer how to perform a task.
+What is programming?
+Programming is the process of writing code for a computer.
+How would you define programming?
+Programming is the process of creating programs with code.
+What does programming mean?
+Programming means writing instructions that a computer can execute.
+What is software?
+Software is a collection of programs and instructions.
+How do you define software?
+Software is the non-physical part of a computer system.
+What does software do?
+Software provides instructions that allow a computer to perform tasks.
+What is hardware?
+Hardware is the physical part of a computer system.
+How would you define hardware?
+Hardware consists of the physical components of a computer.
+What does hardware include?
+Hardware includes the physical parts used to build a computer.
+What is an iteration?
+An iteration is one execution of a loop.
+How do you define an iteration?
+An iteration is one repetition of a loop.
+What does an iteration mean?
+An iteration represents one cycle of repeated code.
+What is an index?
+An index is a value used to identify a position in a collection.
+How would you define an index?
+An index specifies the position of an element in a collection.
+What does an index do?
+An index allows a program to access an element at a specific position.
+What is a library?
+A library is a collection of reusable code.
+How do you define a library?
+A library provides code that can be reused by programs.
+What does a library provide?
+A library provides reusable functions, classes, or other code.
+What is an API?
+An API is an interface that allows software components to communicate.
+How would you define an API?
+An API defines how programs or software components interact.
+What does an API do?
+An API allows different software systems to communicate and share functionality.
+What is a module?
+A module is a unit of code used to organize a program.
+How do you define a module?
+A module is a separate piece of code containing related functionality.
+What does a module do?
+A module helps organize and reuse code.
+What is an import?
+An import brings code from another module or library into a program.
+How would you define an import?
+An import makes code from another module available to a program.
+What does an import do?
+An import allows a program to use code written elsewhere.
+What is an instance?
+An instance is an object created from a class.
+How do you define an instance?
+An instance is a specific object belonging to a class.
+What does instance mean?
+An instance is a concrete object created using a class.
+What is a value?
+A value is a piece of data used by a program.
+How would you define a value?
+A value is data that can be stored or used by a program.
+What does a value represent?
+A value represents data that a program can work with.
+What is an expression?
+An expression is code that produces a value.
+How do you define an expression?
+An expression combines values, variables, and operators to produce a result.
+What does an expression do?
+An expression evaluates to a value.
+What is a statement?
+A statement is an instruction that performs an action in a program.
+How would you define a statement?
+A statement is a complete instruction written in source code.
+What does a statement do?
+A statement tells a program to perform an action.
+What is inheritance?
+Inheritance allows a class to reuse properties and behavior from another class.
+How do you define inheritance?
+Inheritance is a feature where one class derives from another class.
+What does inheritance do?
+Inheritance allows a class to reuse code from a parent class.
+What is a parent class?
+A parent class is a class that another class inherits from.
+How would you define a parent class?
+A parent class provides properties and behavior to a child class.
+What does a parent class do?
+A parent class can provide data and methods to its child classes.
+What is a child class?
+A child class is a class that inherits from a parent class.
+How do you define a child class?
+A child class is a class derived from another class.
+What does a child class do?
+A child class can reuse or extend behavior from its parent class.
+What is encapsulation?
+Encapsulation is the practice of keeping data and related methods together.
+How would you define encapsulation?
+Encapsulation groups data and behavior while controlling access to internal details.
+What does encapsulation do?
+Encapsulation protects data and limits direct access to it.
+What is a private variable?
+A private variable is a variable that is restricted to its class.
+How do you define a private variable?
+A private variable can only be accessed from within its class.
+What does a private variable do?
+A private variable limits access to internal data.
+What is a public variable?
+A public variable is a variable that can be accessed from outside its class.
+How would you define a public variable?
+A public variable allows access from outside the class that defines it.
+What does a public variable do?
+A public variable makes its value accessible to other code.
+What is polymorphism?
+Polymorphism allows different classes to respond to the same operation in different ways.
+How do you define polymorphism?
+Polymorphism is the ability to use different objects through a common interface.
+What does polymorphism do?
+Polymorphism allows the same method call to produce different behavior.
+What is method overriding?
+Method overriding is when a child class provides its own version of a parent method.
+How would you define method overriding?
+Method overriding lets a child class replace a method inherited from its parent.
+What does method overriding do?
+Method overriding allows a child class to change inherited behavior.
+What is abstraction?
+Abstraction means hiding unnecessary implementation details.
+How do you define abstraction?
+Abstraction exposes essential features while hiding complex details.
+What does abstraction do?
+Abstraction makes complex systems easier to use by hiding internal details.
+What is an abstract class?
+An abstract class is a class that cannot be instantiated directly.
+How would you define an abstract class?
+An abstract class is designed to be inherited rather than directly instantiated.
+What does an abstract class do?
+An abstract class provides a base structure for other classes.
+What is an interface?
+An interface defines methods that a class must implement.
+How do you define an interface?
+An interface is a contract that specifies required methods.
+What does an interface do?
+An interface defines how a class can interact with other code.
+What is the difference between a parameter and an argument?
+A parameter is defined by a function, while an argument is passed to it.
+How are parameters and arguments different?
+A parameter receives a value, while an argument provides that value.
+What is the difference between an integer and a float?
+An integer stores whole numbers, while a float can store decimal numbers.
+How are integers and floats different?
+Integers have no decimal part, while floats can have decimal values.
+What is the difference between a variable and a constant?
+A variable can change, while a constant is intended to remain unchanged.
+How are variables and constants different?
+A variable can hold changing values, while a constant represents a fixed value.
+What is the difference between a class and an object?
+A class is a blueprint, while an object is an instance of that class.
+How are classes and objects different?
+A class defines a structure, while an object is created from that structure.
+What is the difference between a list and an array?
+Both store collections of values, but their features depend on the language.
+How are lists and arrays different?
+Lists and arrays both store multiple values, but they can have different behaviors.
+What is the difference between a bug and an error?
+A bug is a defect, while an error is a problem that occurs during coding or execution.
+How are bugs and errors different?
+A bug can cause an error or incorrect behavior in a program.
+What is the difference between a for loop and a while loop?
+A for loop is often used for sequences, while a while loop depends on a condition.
+How are for and while loops different?
+Both repeat code, but they are commonly used in different situations.
+ChatGPT a dit :
+What is a variable scope?
+A variable scope defines where a variable can be accessed.
+How do you define variable scope?
+Variable scope is the part of a program where a variable is available.
+What does variable scope mean?
+Variable scope determines where a variable can be used.
+What is a local variable?
+A local variable is a variable defined inside a function or block.
+How do you define a local variable?
+A local variable can only be used within its local scope.
+What does a local variable mean?
+A local variable is available only in a limited part of a program.
+What is a global variable?
+A global variable is a variable that can be accessed from a wider scope.
+How do you define a global variable?
+A global variable is declared outside a local function or block.
+What does a global variable mean?
+A global variable can be used by different parts of a program.
+What is a data value?
+A data value is a piece of information used by a program.
+How do you define a data value?
+A data value is information stored or processed by a program.
+What does a data value mean?
+A data value represents information that a program can use.
+What is a variable declaration?
+A variable declaration introduces a variable in a program.
+How do you define a variable declaration?
+A variable declaration tells the program about a variable.
+What does variable declaration mean?
+A variable declaration creates or identifies a variable.
+What is initialization?
+Initialization gives a variable its first value.
+How do you define initialization?
+Initialization is the process of assigning an initial value.
+What does initialization mean?
+Initialization sets the starting value of a variable.
+What is an assignment?
+An assignment gives a value to a variable.
+How do you define assignment?
+Assignment stores a value in a variable.
+What does assignment mean?
+Assignment changes or sets the value of a variable.
+What is a literal?
+A literal is a value written directly in code.
+How do you define a literal?
+A literal represents a fixed value in source code.
+What does literal mean?
+A literal is a value written directly in a program.
+What is a keyword?
+A keyword is a reserved word with a special meaning in a programming language.
+How do you define a keyword?
+A keyword is a word that has a predefined purpose in code.
+What does keyword mean?
+A keyword is a reserved word used by a programming language.
+What is an identifier?
+An identifier is a name used for a programming element.
+How do you define an identifier?
+An identifier names variables, functions, classes, or other elements.
+What does identifier mean?
+An identifier is a name used to identify something in code.
+What is a comment?
+A comment is text in code that is not executed.
+How do you define a comment?
+A comment explains code without affecting its execution.
+What does a comment do?
+A comment provides information for people reading the code.
+What is a syntax error?
+A syntax error occurs when code does not follow language rules.
+How do you define a syntax error?
+A syntax error means the code has invalid syntax.
+What does a syntax error mean?
+A syntax error prevents code from being correctly understood.
+What is a runtime error?
+A runtime error happens while a program is running.
+How do you define a runtime error?
+A runtime error is a problem that occurs during execution.
+What does a runtime error mean?
+A runtime error happens after the program starts running.
+What is a logical error?
+A logical error causes a program to produce an incorrect result.
+How do you define a logical error?
+A logical error occurs when the program runs but behaves incorrectly.
+What does a logical error mean?
+A logical error is a mistake in the program's logic.
+What is debugging?
+Debugging is the process of finding and fixing errors in code.
+How do you define debugging?
+Debugging means identifying problems in a program and correcting them.
+What does debugging mean?
+Debugging helps programmers find and fix bugs.
+What is a condition?
+A condition is an expression that evaluates to true or false.
+How do you define a condition?
+A condition is used to make a decision in a program.
+What does a condition do?
+A condition determines whether something should happen.
+What is a comparison?
+A comparison checks the relationship between values.
+How do you define a comparison?
+A comparison determines whether values are equal or different.
+What does a comparison do?
+A comparison checks values using comparison operators.
+What is equality?
+Equality means that two values are considered the same.
+How do you define equality?
+Equality checks whether two values are equal.
+What does equality mean in programming?
+Equality determines whether two values have the same value.
+What is a boolean value?
+A boolean value is either true or false.
+How do you define a boolean value?
+A boolean value represents one of two states, true or false.
+What does a boolean value mean?
+A boolean value represents a yes or no condition.
+What is a logical operator?
+A logical operator combines or changes boolean conditions.
+How do you define a logical operator?
+A logical operator is used to work with true and false values.
+What does a logical operator do?
+A logical operator combines conditions to make decisions.
+What is AND?
+AND is a logical operation that is true when both conditions are true.
+How do you define AND?
+AND requires all combined conditions to be true.
+What does AND do?
+AND returns true only when both conditions are true.
+What is OR?
+OR is a logical operation that is true when at least one condition is true.
+How do you define OR?
+OR requires at least one of the conditions to be true.
+What does OR do?
+OR returns true when one or both conditions are true.
+What is NOT?
+NOT is a logical operation that reverses a boolean value.
+How do you define NOT?
+NOT changes true to false and false to true.
+What does NOT do?
+NOT reverses the result of a boolean condition.
+What is a loop counter?
+A loop counter tracks the number of loop iterations.
+How do you define a loop counter?
+A loop counter is a variable used to count repetitions.
+What does a loop counter do?
+A loop counter keeps track of how many times a loop runs.
+What is an infinite loop?
+An infinite loop is a loop that does not stop.
+How do you define an infinite loop?
+An infinite loop continues running without reaching its stopping condition.
+What does an infinite loop mean?
+An infinite loop repeats indefinitely.
+What is a nested loop?
+A nested loop is a loop placed inside another loop.
+How do you define a nested loop?
+A nested loop contains one loop inside another.
+What does a nested loop do?
+A nested loop repeats one loop within another loop.
+What is a sequence?
+A sequence is an ordered set of elements or instructions.
+How do you define a sequence?
+A sequence contains items arranged in a specific order.
+What does sequence mean in programming?
+A sequence describes code or data arranged in order.
+What is an element?
+An element is an individual item in a collection.
+How do you define an element?
+An element is a single value stored in a data structure.
+What does an element mean?
+An element is one item inside a collection.
+What is a collection?
+A collection is a group of values or objects.
+How do you define a collection?
+A collection stores multiple related elements.
+What does a collection mean?
+A collection groups several values together.
+What is a string character?
+A character is a single symbol in a string.
+How do you define a character?
+A character is one individual letter, number, or symbol.
+What does character mean in programming?
+A character is one unit of text.
+What is a string length?
+String length is the number of characters in a string.
+How do you define string length?
+String length tells how many characters a string contains.
+What does string length mean?
+String length represents the size of a string.
+What is concatenation?
+Concatenation joins strings together.
+How do you define concatenation?
+Concatenation combines two or more strings into one.
+What does concatenation do?
+Concatenation joins text values together.
+What is a function call?
+A function call runs a function.
+How do you define a function call?
+A function call is an instruction that executes a function.
+What does a function call do?
+A function call tells the program to execute a function.
+What is a return statement?
+A return statement sends a value back from a function.
+How do you define a return statement?
+A return statement ends a function and may provide a result.
+What does a return statement do?
+A return statement stops a function and can return a value.
+What is a block of code?
+A block of code is a group of related statements.
+How do you define a code block?
+A code block contains statements that belong together.
+What does a code block mean?
+A code block groups instructions into one section.
+What is indentation?
+Indentation is spacing used to organize code.
+How do you define indentation?
+Indentation uses spaces or tabs to structure source code.
+What does indentation do?
+Indentation makes code structure easier to read.
+What is a program statement?
+A program statement is an instruction executed by a program.
+How do you define a statement?
+A statement is a complete instruction in code.
+What does a statement do?
+A statement tells the program to perform an action.
+What is a module?
+A module is a separate unit of code.
+How do you define a module?
+A module is a file or unit containing related code.
+What does a module do?
+A module helps organize and reuse code.
+What is a package?
+A package is a collection of related modules.
+How do you define a package?
+A package groups modules into a larger structure.
+What does a package do?
+A package organizes related code and modules.
+What is a library?
+A library is reusable code made available to programs.
+How do you define a library?
+A library is a collection of reusable programming components.
+What does a library do?
+A library provides code that programmers can reuse.
+What is an API?
+An API is a way for software components to communicate.
+How do you define an API?
+An API specifies how one program can interact with another.
+What does an API do?
+An API allows programs to exchange data or functionality.
+What is an object?
+An object is an instance of a class.
+How do you define an object?
+An object is a specific instance containing data and behavior.
+What does an object represent?
+An object represents a specific entity in a program.
+What is a class?
+A class is a blueprint for creating objects.
+How do you define a class?
+A class describes the structure and behavior of objects.
+What does a class define?
+A class defines data and methods that objects can have.
+What is a property?
+A property is data associated with an object.
+How do you define a property?
+A property represents information stored by an object.
+What does a property mean?
+A property is an attribute or piece of data belonging to an object.
+What is a method?
+A method is a function associated with an object or class.
+How do you define a method?
+A method is a function that belongs to a class or object.
+What does a method do?
+A method defines behavior that an object can perform.
+What is an attribute?
+An attribute is a piece of data associated with an object.
+How do you define an attribute?
+An attribute describes a property or value belonging to an object.
+What does an attribute mean?
+An attribute stores information about an object.
+What is inheritance?
+Inheritance allows a class to reuse behavior from another class.
+How do you define inheritance?
+Inheritance lets one class derive from another class.
+What does inheritance do?
+Inheritance allows classes to reuse and extend existing code.
+What is encapsulation?
+Encapsulation keeps data and related methods together.
+How do you define encapsulation?
+Encapsulation groups data and behavior while controlling access.
+What does encapsulation do?
+Encapsulation protects internal data from unwanted access.
+What is abstraction?
+Abstraction hides unnecessary implementation details.
+How do you define abstraction?
+Abstraction shows essential features while hiding complexity.
+What does abstraction do?
+Abstraction makes complex code easier to use.
+What is polymorphism?
+Polymorphism allows different objects to respond differently to the same operation.
+How do you define polymorphism?
+Polymorphism lets different classes provide different implementations.
+What does polymorphism do?
+Polymorphism allows the same interface to work with different objects.

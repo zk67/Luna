@@ -8,7 +8,7 @@ import json
 #function that encodes the input text into token ids using the vocabulary and merged rules stored
 #in "tokenizer/vocab.json" and "tokenizer/merge.json" respectively.
 def encode_prompt(input_text):
-
+    input_text = input_text.lower()
     #read files
     with open(paths.VOCAB_PATH, 'r', encoding='utf-8') as file:
         try:
@@ -38,8 +38,6 @@ def encode_prompt(input_text):
                 key_corpus.append(vocab["<UNK>"])
 
     #not necessary to add the special tokens during training they are already in the prompt
-    # key_corpus.insert(0, vocab["<USER>"])
-    # key_corpus.append(vocab["<ASSISTANT>"])
     
     return key_corpus
 

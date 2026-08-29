@@ -1,18 +1,9 @@
-import json
-
-with open("tokenizer/vocab.json", "r", encoding="utf-8") as file:
-    vocab = json.load(file)
-
-
-VOCAB_SIZE = len(vocab)
-EOS_TOKEN_ID = vocab["<EOS>"]
-PAD_TOKEN_ID = vocab["<PAD>"]
-HIDDEN_SIZE = 128
-CONTEXT_SIZE = 64
+HIDDEN_SIZE = 224
+CONTEXT_SIZE = 96
 HEADS = 4
-INTERMEDIATE_SIZE = 512
-LAYERS = 6
+INTERMEDIATE_SIZE = 896
+LAYERS = 4
 LEARNING_RATE = 0.0003
-BATCH_SIZE = 8
-TRAINING_LOOPS = 10
+BATCH_SIZE = 16
 TEMPERATURE = 0.8
+DROPOUT = 0.1

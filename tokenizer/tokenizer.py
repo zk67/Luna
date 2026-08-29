@@ -5,6 +5,7 @@ import paths
 
 #Take a sentence and a vocab dictionary and return a corpus of the sentence.
 def split_text(text):
+    text = text.lower()
     tokens = re.findall(
         r"[A-Za-zÀ-ÖØ-öø-ÿ]+|\d+|[,.!?:;()\[\]{}\"']",
         text
@@ -84,7 +85,7 @@ def bpe_function(corpus, recurrence):
 #Use BPE function to tokenize a text and save the vocab and merge files.
 #The function reads the input text from "data/input_text.txt", updates the vocabulary and the merge rules, and saves them in "tokenizer/vocab.json" and 
 #"tokenizer/merge.json" respectively.
-def tokenize_function(input_text):
+def tokenize_function(input_text, vocab_size_limit=2000):
  #read files
   with open( paths.VOCAB_PATH, "r", encoding="utf-8") as file:
     try:
@@ -105,7 +106,7 @@ def tokenize_function(input_text):
   #add spécial tokens to vocab, then add each character in the corpus to the vocab if it is not already present.
   add_new_tokens(corpus, vocab)
 
-  while len(vocab) < config.VOCAB_MAX_SIZE:
+  while len(vocab) < vocab_size_limit:
     #most recurrent pair of letters in the corpus with their frequency count.
     recurrence = most_frequent_pair(corpus)
 

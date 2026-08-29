@@ -21,7 +21,7 @@ def generate_tokens(model, input_ids, vocab, max_new_tokens=64, temperature=0.8)
         padding_length = config.CONTEXT_SIZE - current_length
 
         if padding_length > 0:
-            padding = torch.full((padding_length,), config.PAD_TOKEN_ID, dtype=torch.long)
+            padding = torch.full((padding_length,), vocab['<PAD>'], dtype=torch.long)
             input_ids_copy = torch.cat([input_ids_copy, padding], dim=0)
 
         attention_mask = create_attention_masks(input_ids_copy.unsqueeze(0), vocab).squeeze(0)
@@ -40,7 +40,7 @@ def generate_tokens(model, input_ids, vocab, max_new_tokens=64, temperature=0.8)
         #greedy
         next_token = torch.argmax(probabilities, dim=-1, keepdim=True)
 
-        if next_token.item() == config.EOS_TOKEN_ID:
+        if next_token.item() == vocab['<EOS>']:
             break
         if current_length >= config.CONTEXT_SIZE:
             break
@@ -64,7 +64,8 @@ def run_generation(prompt):
         context_size=config.CONTEXT_SIZE,
         num_heads=config.HEADS,
         intermediate_size=config.INTERMEDIATE_SIZE,
-        num_layers=config.LAYERS
+        num_layers=config.LAYERS,
+        dropout=config.DROPOUT
     )
 
     # Charger les poids entraînés

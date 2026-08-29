@@ -3,7 +3,7 @@ import torch.nn as nn
 import math
 
 class TransformerBlock(nn.Module):
-    def __init__(self, hidden_size, num_heads, intermediate_size):
+    def __init__(self, hidden_size, num_heads, intermediate_size, dropout):
         super().__init__()
 
         self.hidden_size = hidden_size
@@ -23,8 +23,13 @@ class TransformerBlock(nn.Module):
         self.w2 = nn.Linear(hidden_size, intermediate_size)
         self.w3 = nn.Linear(intermediate_size, hidden_size)
 
+          # NEW: dropout layers
+        self.attn_dropout = nn.Dropout(dropout)    
+        self.resid_dropout1 = nn.Dropout(dropout)  
+        self.resid_dropout2 = nn.Dropout(dropout)
+
     # FIX 2: Removed unused input_ids parameter to keep clean signatures
-    def forward(self, attention_mask, causal_mask, x):
+    def forward(self, attention_mask, causal_mask, x, ):
         batch_size, sequence_length, hidden_size = x.shape    
 
         # Save identity for true Pre-LN residual connection
@@ -51,6 +56,7 @@ class TransformerBlock(nn.Module):
 
         # convert scores to probabilities and compute attention output
         attention_weights = torch.softmax(scores, dim=-1)
+        attention_weights = self.attn_dropout(attention_weights) 
         attention_output  = attention_weights @ V
 
         # reshape attention output back to sequence shape
@@ -62,6 +68,7 @@ class TransformerBlock(nn.Module):
 
         # FIX 3: Corrected residual flow (add to the original un-normalized tensor)
         w0 = self.w0(attention_output)
+        w0 = self.resid_dropout1(w0)
         x = residual + w0
 
         # Feed-Forward network with another Pre-LN residual block
@@ -72,6 +79,7 @@ class TransformerBlock(nn.Module):
         value = self.w2(normed_ffn_x)
         ffn_output = gate * value
         ffn_output = self.w3(ffn_output)
+        ffn_output = self.resid_dropout2(ffn_output)
         
         x = residual_ffn + ffn_output
 
@@ -86,12 +94,15 @@ class Transformer(nn.Module):
         context_size,
         num_heads,
         intermediate_size,
-        num_layers
+        num_layers,
+        dropout
     ):
         super().__init__()
 
         self.token_embedding = nn.Embedding(vocab_size, hidden_size)
         self.position_embedding = nn.Embedding(context_size, hidden_size)
+        self.final_norm = nn.LayerNorm(hidden_size)
+        self.embed_dropout = nn.Dropout(dropout)
 
         self.layers = nn.ModuleList()
 
@@ -99,7 +110,8 @@ class Transformer(nn.Module):
             layer = TransformerBlock(
                 hidden_size,
                 num_heads,
-                intermediate_size
+                intermediate_size,
+                dropout
             )
 
             self.layers.append(layer)
@@ -114,11 +126,14 @@ class Transformer(nn.Module):
         position_embedding = self.position_embedding(positions)
 
         x = token_embedding + position_embedding
+        x = self.embed_dropout(x) 
 
         for layer in self.layers:
             # Matches the streamlined block signature now
             x = layer(attention_mask, causal_mask, x)
 
+        x = self.final_norm(x) 
         logits = self.lm_head(x)
+        
 
         return logits

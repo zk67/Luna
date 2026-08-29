@@ -18,7 +18,6 @@ def save_config():
         f.write(f"INTERMEDIATE_SIZE = {config.INTERMEDIATE_SIZE}\n")
         f.write(f"LAYERS = {config.LAYERS}\n")
         f.write(f"BATCH_SIZE = {config.BATCH_SIZE}\n")
-        f.write(f"TRAINING_LOOPS = {config.TRAINING_LOOPS}\n")
         f.write(f"TEMPERATURE = {config.TEMPERATURE}\n")
     
 #function that clears the console screen.
@@ -37,7 +36,6 @@ def show_main_menu():
     print("║ Version : 0.1.0                                     ║")
     print("╠═════════════════════════════════════════════════════╣")
     print("║ MODEL INFORMATION                                   ║")
-    print(f"║ Vocabulary size : {config.VOCAB_SIZE:<15}                   ║") 
     print(f"║ Hidden size : {config.HIDDEN_SIZE:<15}                       ║") 
     print(f"║ Context size : {config.CONTEXT_SIZE:<15}                      ║") 
     print(f"║ Attention heads : {config.HEADS:<15}                   ║") 
@@ -46,7 +44,6 @@ def show_main_menu():
     print("╠═════════════════════════════════════════════════════╣") 
     print("║ TRAINING INFORMATION                                ║") 
     print(f"║ Batch size : {config.BATCH_SIZE:<15}                        ║") 
-    print(f"║ Training loops : {config.TRAINING_LOOPS:<15}                    ║") 
     print("╠═════════════════════════════════════════════════════╣") 
     print("║ 1. Chat with Luna                                   ║") 
     print("║ 2. Train the model                                  ║") 
@@ -68,7 +65,7 @@ def show_train_menu():
     print("║                                          ║")
     print("║  1. Start training                       ║")
     print("║  2. Load a new text file                 ║")
-    print("║  3. Reset the training        ║")
+    print("║  3. Reset the training                   ║")
     print("║  4. Back                                 ║")
     print("║                                          ║") 
     print("╚══════════════════════════════════════════╝")
@@ -113,7 +110,7 @@ def start_training():
             break
 
         while True:
-            response = input("For how many loops do you want to train the model on? : ").strip()
+            response = input("For how many loops do you want to train the model? : ").strip()
             if response.isdigit():
                 break
             print("Please enter a valid number.")
