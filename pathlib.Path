@@ -1,0 +1,11 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+DATA_DIR = ROOT / "data"
+
+RAW_DATASET_PATH = DATA_DIR / "raw" / "dataset.jsonl"
+PROCESSED_DATASET_PATH = DATA_DIR / "processed" / "dataset.jsonl"
+VOCAB_PATH = ROOT / "tokenizer" / "vocab.json"
+MERGES_PATH = ROOT / "tokenizer" / "merges.json"
+CHECKPOINT_DIR = ROOT / "checkpoints"
+CHECKPOINT_PATH = CHECKPOINT_DIR / "luna.pt"
