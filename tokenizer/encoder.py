@@ -1,6 +1,3 @@
-from importlib.resources import path
-
-from sympy import python
 import paths
 from tokenizer.tokenizer import split_text, bpe_function, add_new_tokens
 import json

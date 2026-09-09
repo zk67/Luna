@@ -1,11 +1,9 @@
 import os
-
 import torch
 import torch.nn as nn
 import json
 from model.transformer import Transformer
 from torch.utils.data import TensorDataset, DataLoader
-import paths
 import paths
 from training.dataset import build_dataset_jsonl, create_attention_masks, create_training_examples, create_casual_mask 
 from tokenizer.tokenizer import tokenize_function
