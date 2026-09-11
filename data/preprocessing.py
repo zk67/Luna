@@ -1,4 +1,4 @@
-import pathlib
+import paths
 import json
 
 USER_POSSIBLE_KEYS = [
@@ -17,7 +17,7 @@ ASSISTANT_POSSIBLE_KEYS = [
 #Convert the jsonl dataset to a list of dictionaries,
 #where each dictionary represents a line in the jsonl file.
 def read_jsonl():
-    with open(pathlib.RAW_DATASET_PATH, "r", encoding="utf-8") as file:
+    with open(paths.RAW_DATASET_PATH, "r", encoding="utf-8") as file:
         dataset = [json.loads(line) for line in file]
     return dataset
 
