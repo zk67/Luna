@@ -6,7 +6,7 @@ class ModelConfig:
     hidden_size: int = 224
     context_size: int = 128
     num_heads: int = 4
-    intermediate_size: int = 896
+    intermediate_size: int = 896 #The size of the hidden layer in the feed-forward network
     num_layers: int = 4
     dropout: float = 0.1
 
