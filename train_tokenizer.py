@@ -18,6 +18,3 @@ def main():
     tokenizer = BPETokenizer()
     tokenizer.train(texts)
     tokenizer.save()
-
-if __name__ == "__main__":
-    main()

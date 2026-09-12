@@ -17,8 +17,3 @@ def main():
 
     print("Preprocessing complete.")
     print(f"Dataset saved to: {paths.PROCESSED_DATASET_PATH}")
-
-if __name__ == "__main__":
-    main()
-
-
