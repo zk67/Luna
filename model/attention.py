@@ -43,14 +43,14 @@ class CausalSelfAttention(nn.Module):
         #scaling the attention scores by the square root of the head dimension
         attention_scores = attention_scores / (self.head_dim ** 0.5)
 
+        # Apply the causal mask to the attention scores to prevent attending to future tokens
+        # by setting their attention scores to negative infinity
+        attention_scores = attention_scores.masked_fill(causal_mask == 0, float('-inf'))
+
         # Apply the padding attention mask to ignore padding tokens in the input sequences, setting 
         # their attention scores to negative infinity
         attention_mask = attention_mask.unsqueeze(1).unsqueeze(2)  # Shape: (batch_size, 1, 1, seq_length)
         attention_scores = attention_scores.masked_fill(attention_mask == 0, float('-inf'))
-
-        # Apply the causal mask to the attention scores to prevent attending to future tokens
-        # by setting their attention scores to negative infinity
-        attention_scores = attention_scores.masked_fill(causal_mask == 0, float('-inf'))
 
         # Compute attention weights using softmax to get a probability distribution over the tokens
         attention_probs = torch.softmax(attention_scores, dim=-1)
@@ -60,16 +60,18 @@ class CausalSelfAttention(nn.Module):
 
         attention_output = torch.matmul(attention_probs, V)
 
+        #go back to the original shape of the input tensor by transposing and reshaping the attention output
         attention_output = attention_output.transpose(1, 2).reshape(
             attention_output.size(0),
             attention_output.size(2),
             self.hidden_size
         )
 
-        # Project the attention output back to the original hidden size
+        #Mix the values of the attention output to brake the divison of the heads and to allow the model to learn
+        # a more complex representation of the input sequence.
         attention_output = self.out_proj(attention_output)
 
-        # Apply dropout to the output of the attention layer for regularization
+        # Apply dropout directly to the attention output for regularization before returning it.
         attention_output = self.residual_dropout(attention_output)
 
         return attention_output
